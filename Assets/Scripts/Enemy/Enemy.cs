@@ -31,8 +31,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-         Player player = FindObjectOfType<Player>();
-        _target = player;
+        _target = FindObjectOfType<Player>(); ;
         _hashEnemy = GetComponent<HashEnemyAnimations>();
         _currentState = Following();
         _transitionRange += Random.Range(-_rangeSpread, _rangeSpread);
@@ -168,10 +167,5 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _health -= damage;      
-    }
-
-    public void Init(Player target)
-    {
-        _target = target;
     }
 }

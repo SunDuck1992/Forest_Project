@@ -6,9 +6,9 @@ public class EndGame : MonoBehaviour
 {
     [SerializeField] private GameObject _canvas;
 
-    void OnTriggerEnter(Collider collider)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collider.GetComponent<Player>())
+        if (collider.TryGetComponent<Player>(out Player player))
         {
             DontDestroy obj = FindObjectOfType<Sound>().GetComponent<DontDestroy>();
             obj.DestroyObject();

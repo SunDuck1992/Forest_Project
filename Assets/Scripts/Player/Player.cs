@@ -15,9 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _transitionRange;
     [SerializeField] private Transform _attackPosition;
-    [SerializeField] private float _attackRangeX;
-    [SerializeField] private float _attackRangeY;
-    [SerializeField] private float _attackRangeZ;
+    [SerializeField] private Vector3 _attackRange;
     [SerializeField] private LayerMask _layerEnemy;
     [SerializeField] private GameObject _canvas;
 
@@ -26,7 +24,6 @@ public class Player : MonoBehaviour
     private bool _isGround;
     private Animator _animator;
     private int _currentHealth;
-    private Enemy _enemy;
     private HashPlayerAnimations _hashPlayer;
 
     public int CurrentHealth => _currentHealth;
@@ -52,7 +49,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Jump();
+        TryJump();
         Attack();
     }
 
@@ -108,7 +105,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Jump()
+    private void TryJump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && _isGround)
         {
@@ -167,22 +164,6 @@ public class Player : MonoBehaviour
         _canvas.SetActive(true);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent(out Enemy enemy))
-        {
-            _enemy = enemy;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out Enemy enemy))
-        {
-            _enemy = null;
-        }
-    }
-
     private bool HandleInput()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -195,7 +176,7 @@ public class Player : MonoBehaviour
 
     private void PlayerAttack()
     {
-        Collider[] enemiesToDamage = Physics.OverlapBox(_attackPosition.position, new Vector3(_attackRangeX, _attackRangeY, _attackRangeZ), Quaternion.identity, _layerEnemy);
+        Collider[] enemiesToDamage = Physics.OverlapBox(_attackPosition.position, _attackRange, Quaternion.identity, _layerEnemy);
 
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
@@ -203,19 +184,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(_attackPosition.position, new Vector3(_attackRangeX, _attackRangeY, _attackRangeZ));
-    }
-
-    public void SaveGame()
+    public void SaveHealth()
     {
         PlayerPrefs.SetInt("SavedInteger",CurrentHealth);
         PlayerPrefs.Save();
     }
 
-    public void LoadGame()
+    public void LoadHealth()
     {
         if (PlayerPrefs.HasKey("SavedInteger"))
         {

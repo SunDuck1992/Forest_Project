@@ -12,7 +12,7 @@ public class TransitScene : MonoBehaviour
         if(collider.GetComponent<Player>()/*gameObject.tag == "Player"*/)
         {
             Player player = FindObjectOfType<Player>();
-            player.SaveGame();
+            player.SaveHealth();
             SceneManager.LoadScene(_sceneName);
         }
     }

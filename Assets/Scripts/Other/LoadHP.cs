@@ -12,6 +12,6 @@ public class LoadHP : MonoBehaviour
     private void LoadCharacteristics()
     {
         Player player = FindObjectOfType<Player>();
-        player.LoadGame();
+        player.LoadHealth();
     }
 }
