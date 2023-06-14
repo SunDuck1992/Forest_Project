@@ -9,9 +9,8 @@ public class TransitScene : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if(collider.GetComponent<Player>()/*gameObject.tag == "Player"*/)
+        if(collider.TryGetComponent(out Player player))
         {
-            Player player = FindObjectOfType<Player>();
             player.SaveHealth();
             SceneManager.LoadScene(_sceneName);
         }

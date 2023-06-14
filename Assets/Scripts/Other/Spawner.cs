@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Player _player;
     [SerializeField] private List<GameObject> _enemyPrefab;
     [SerializeField] private Transform[] _pointOfSpawn;
     [SerializeField] private float _secondsBetweenSpawn;

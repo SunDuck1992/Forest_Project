@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HashEnemyAnimations : MonoBehaviour
 {
-    public readonly int Idle = Animator.StringToHash("isIdle");
     public readonly int Brake = Animator.StringToHash("isBrake");
-    public readonly int Die = Animator.StringToHash("Die");
+    public readonly int Die = Animator.StringToHash("isDie");
+    public readonly int Walk = Animator.StringToHash("isWalk");
 }

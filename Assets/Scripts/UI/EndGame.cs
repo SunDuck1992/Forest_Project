@@ -10,10 +10,10 @@ public class EndGame : MonoBehaviour
     {
         if (collider.TryGetComponent<Player>(out Player player))
         {
+            _canvas.gameObject.SetActive(true);
             DontDestroy obj = FindObjectOfType<Sound>().GetComponent<DontDestroy>();
             obj.DestroyObject();
             Time.timeScale = 0;
-            _canvas.gameObject.SetActive(true);
         }
     }
 }

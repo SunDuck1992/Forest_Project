@@ -8,17 +8,9 @@ public class HealthMushroom : MonoBehaviour
 {
     [SerializeField] private int _heal;
 
-    private Player player;
-    //[SerializeField] private Player _player;
-
-    private void Awake()
-    {
-        player = FindObjectOfType<Player>();
-    }
-
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.GetComponent<Player>())
+        if (collider.TryGetComponent(out Player player))
         {
             player.GetHeal(_heal);
             Destroy(gameObject);
